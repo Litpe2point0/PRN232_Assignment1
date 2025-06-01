@@ -7,7 +7,7 @@ namespace BusinessObject.Entities;
 public partial class Tag : IEntity<int>
 {
     public int TagId { get; set; }
-    public int Id => TagId;
+    int IEntity<int>.Id => TagId;
 
     public string? TagName { get; set; }
 

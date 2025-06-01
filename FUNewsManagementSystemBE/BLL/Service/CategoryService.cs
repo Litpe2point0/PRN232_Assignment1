@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using BusinessLogicLayer.UnitOfWorks;
 using BusinessObject.Entities;
+using BusinessObject.Model;
 
 namespace FUNews.BLL.Services
 {
@@ -24,9 +25,10 @@ namespace FUNews.BLL.Services
         }
 
       
-        public async Task<Category?> GetCategoryByIdAsync(short id)
+        public async Task<CategoryReturnDTO?> GetCategoryByIdAsync(short id)
         {
-            return await _categoryRepository.FindById(id, "CategoryId", c => c.ParentCategory);
+            var category = await _categoryRepository.FindById(id, "CategoryId", c => c.ParentCategory);
+            return MapToDto(category);
         }
 
         public async Task AddCategoryAsync(Category category)
@@ -68,6 +70,24 @@ namespace FUNews.BLL.Services
                 .FindAll(c => c.IsActive == true) 
                 .ToListAsync();
         }
-
+        public static CategoryReturnDTO MapToDto(Category category)
+        {
+            return new CategoryReturnDTO
+            {
+                CategoryId = category.CategoryId,
+                CategoryName = category.CategoryName,
+                CategoryDesciption = category.CategoryDesciption,
+                ParentCategoryId = category.ParentCategoryId,
+                IsActive = category.IsActive,
+                ParentCategory = category.ParentCategory == null ? null : new ParentCategoryDTO
+                {
+                    CategoryId = category.ParentCategory.CategoryId,
+                    CategoryName = category.ParentCategory.CategoryName,
+                    CategoryDesciption = category.ParentCategory.CategoryDesciption,
+                    ParentCategoryId = category.ParentCategory.ParentCategoryId,
+                    IsActive = category.ParentCategory.IsActive
+                }
+            };
+        }
     }
 }

@@ -1,11 +1,12 @@
 ﻿using BusinessObject.Entities;
+using BusinessObject.Model;
 
 namespace FUNews.BLL.Services
 {
     public interface ICategoryService
     {
         Task<IEnumerable<Category>> GetAllCategoriesAsync();
-        Task<Category?> GetCategoryByIdAsync(short id);
+        Task<CategoryReturnDTO?> GetCategoryByIdAsync(short id);
         Task AddCategoryAsync(Category category);
         Task UpdateCategoryAsync(Category category);
         Task DeleteCategoryAsync(short id);

@@ -54,7 +54,7 @@ namespace FUNewsManagementSystem.Pages.Reports
                 c => articles.Count(a => a.CategoryId == c.CategoryId)
             );
 
-            var staffList = await _httpClient.GetFromJsonAsync<List<SystemAccount>>("https://localhost:7126/api/Account")
+            var staffList = await _httpClient.GetFromJsonAsync<List<SystemAccount>>("https://localhost:7126/api/SystemAccount")
                 ?? new List<SystemAccount>();
             StaffStats = staffList.ToDictionary(
                 s => s.AccountName,

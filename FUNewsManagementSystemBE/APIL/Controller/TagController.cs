@@ -40,9 +40,6 @@ namespace WebAppAPI.Controller
         {
             if (tag == null)
                 return BadRequest("Tag cannot be null");
-            var existingTag = await _tS.GetTagByIdAsync(tag.TagId);
-            if (existingTag == null)
-                return NotFound();
             await _tS.UpdateTagAsync(tag);
             return NoContent();
         }
