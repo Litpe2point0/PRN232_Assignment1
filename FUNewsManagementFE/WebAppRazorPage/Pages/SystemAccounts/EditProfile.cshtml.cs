@@ -33,7 +33,7 @@ namespace FUNewsManagementSystem.Pages.SystemAccounts
                 return Unauthorized();
             }
 
-            var account = await _httpClient.GetFromJsonAsync<SystemAccount>($"https://localhost:7126/api/Account/{userId}");
+            var account = await _httpClient.GetFromJsonAsync<SystemAccount>($"https://localhost:7126/api/SystemAccount/{userId}");
             if (account == null) return NotFound();
 
             SystemAccount = account;
