@@ -26,9 +26,9 @@ namespace FUNewsManagementSystem.Pages.SystemAccounts
         {
             var existingAccounts = await _httpClient.PostAsJsonAsync("https://localhost:7126/api/SystemAccount/Any", SystemAccount);
 
-            if (!existingAccounts.IsSuccessStatusCode)
+            if (existingAccounts.IsSuccessStatusCode)
             {
-                TempData["ErrorMessage"] = "❌ Account ID đã tồn tại. Vui lòng nhập ID khác."; 
+                TempData["ErrorMessage"] = "❌ Account ID đã tồn tại. Vui lòng nhập ID khác.";
                 return RedirectToPage("./Index");
             }
 

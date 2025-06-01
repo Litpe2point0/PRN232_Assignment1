@@ -1,5 +1,4 @@
 ﻿using BusinessObject.Entities;
-using FUNewsManagementSystem.Hubs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.SignalR;
@@ -11,11 +10,9 @@ namespace FUNewsManagementSystem.Pages.Tags
     {
         private readonly HttpClient _httpClient;
 
-        private readonly IHubContext<SignalrServer> _hubContext;
-        public CreateModel(HttpClient httpClient, IHubContext<SignalrServer> hubContext)
+        public CreateModel(HttpClient httpClient)
         {
             _httpClient = httpClient;
-            _hubContext = hubContext;
         }
 
         public IActionResult OnGet()
@@ -36,7 +33,6 @@ namespace FUNewsManagementSystem.Pages.Tags
                 Tag.TagId = maxId + 1;
 
                 await _httpClient.PostAsJsonAsync("https://localhost:7126/api/Tag", Tag);
-                await _hubContext.Clients.All.SendAsync("LoadAllItems");
 
                 return RedirectToPage("./Index");
             }

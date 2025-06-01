@@ -1,5 +1,4 @@
 ﻿using BusinessObject.Entities;
-using FUNewsManagementSystem.Hubs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -16,7 +15,6 @@ namespace FUNewsManagementSystem.Pages.NewsArticles
     public class CreatePartialModel : PageModel
     {
         private readonly HttpClient _httpClient;
-        private readonly IHubContext<SignalrServer> _hubContext;
 
         [BindProperty]
         public NewsArticle NewsArticle { get; set; }
@@ -27,10 +25,9 @@ namespace FUNewsManagementSystem.Pages.NewsArticles
         public SelectList CategoryList { get; set; }
         public MultiSelectList TagList { get; set; }
 
-        public CreatePartialModel(HttpClient httpClient, IHubContext<SignalrServer> hubContext)
+        public CreatePartialModel(HttpClient httpClient)
         {
             _httpClient = httpClient;
-            _hubContext = hubContext;
 
         }
 
@@ -69,7 +66,6 @@ namespace FUNewsManagementSystem.Pages.NewsArticles
                 TagIds = TagIds
             };
             await _httpClient.PostAsJsonAsync("https://localhost:7126/api/NewsArticle", model);
-            await _hubContext.Clients.All.SendAsync("LoadAllArticles");
             return RedirectToPage("/NewsArticles/Index");
         }
 

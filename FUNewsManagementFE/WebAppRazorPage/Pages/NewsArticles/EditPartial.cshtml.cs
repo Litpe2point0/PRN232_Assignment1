@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
-using FUNewsManagementSystem.Hubs;
 using Microsoft.AspNetCore.SignalR;
 
 namespace FUNewsManagementSystem.Pages.NewsArticles
@@ -16,11 +15,9 @@ namespace FUNewsManagementSystem.Pages.NewsArticles
     public class EditPartialModel : PageModel
     {
         private readonly HttpClient _httpClient;
-        private readonly IHubContext<SignalrServer> _hubContext;
-        public EditPartialModel(HttpClient httpClient, IHubContext<SignalrServer> hubContext)
+        public EditPartialModel(HttpClient httpClient)
         {
             _httpClient = httpClient;
-            _hubContext = hubContext;
         }
 
         [BindProperty]
@@ -81,7 +78,6 @@ namespace FUNewsManagementSystem.Pages.NewsArticles
                 SelectedTagIds = SelectedTagIds
             };
             await _httpClient.PutAsJsonAsync($"https://localhost:7126/api/NewsArticle/v1", model);
-            await _hubContext.Clients.All.SendAsync("LoadAllArticles");
 
             return RedirectToPage("/NewsArticles/Index");
         }

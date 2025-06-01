@@ -38,7 +38,7 @@ namespace FUNewsManagementSystem.Pages.SystemAccounts
                 };
                 var adminIdentity = new ClaimsIdentity(adminClaims, "MyCookieAuth");
                 var adminrincipal = new ClaimsPrincipal(adminIdentity);
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(adminIdentity));
+                await HttpContext.SignInAsync("MyCookieAuth", new ClaimsPrincipal(adminIdentity));
 
                 return RedirectToPage("/SystemAccounts/Index");
             }

@@ -14,7 +14,6 @@ namespace FUNewsManagementSystem.Pages.SystemAccounts
             _httpClient = httpClient;
         }
 
-        // 🔹 Dùng IEnumerable thay vì List
         public IEnumerable<SystemAccount> Accounts { get; set; } = Enumerable.Empty<SystemAccount>();
 
         public async Task OnGetAsync()
