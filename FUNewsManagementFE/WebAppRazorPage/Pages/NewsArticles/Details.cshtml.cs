@@ -29,6 +29,14 @@ namespace FUNewsManagementSystem.Pages.NewsArticles
             else
             {
                 NewsArticle = article;
+               NewsArticle.Category = await _httpClient.GetFromJsonAsync<Category>($"https://localhost:7126/api/Category/{NewsArticle.CategoryId}");
+                if (NewsArticle.Tags != null && NewsArticle.Tags.Count > 0)
+                {
+                    foreach (var tag in NewsArticle.Tags)
+                    {
+                        tag.NewsArticles = null; // Clear the NewsArticles property to avoid circular references
+                    }
+                }
             }
             return Page();
         }

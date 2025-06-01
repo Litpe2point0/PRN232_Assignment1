@@ -7,7 +7,7 @@ namespace BusinessObject.Entities;
 public partial class NewsArticle : IEntity<string>
 {
     public string NewsArticleId { get; set; } = null!;
-    public string Id => NewsArticleId;
+    string IEntity<string>.Id => NewsArticleId;
 
     public string? NewsTitle { get; set; }
 
@@ -28,10 +28,7 @@ public partial class NewsArticle : IEntity<string>
     public short? UpdatedById { get; set; }
 
     public DateTime? ModifiedDate { get; set; }
-    [JsonIgnore]
     public virtual Category? Category { get; set; }
-    [JsonIgnore]
     public virtual SystemAccount? CreatedBy { get; set; }
-    [JsonIgnore]
     public virtual ICollection<Tag> Tags { get; set; } = new List<Tag>();
 }

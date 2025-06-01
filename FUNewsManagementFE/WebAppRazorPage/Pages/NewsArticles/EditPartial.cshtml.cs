@@ -75,7 +75,7 @@ namespace FUNewsManagementSystem.Pages.NewsArticles
             var model = new
             {
                 NewsArticle = NewsArticle,
-                SelectedTagIds = SelectedTagIds
+                TagIds = SelectedTagIds
             };
             await _httpClient.PutAsJsonAsync($"https://localhost:7126/api/NewsArticle/v1", model);
 
