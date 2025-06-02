@@ -20,6 +20,12 @@ namespace WebAppAPI.Controller
             var newsArticles = await _naS.GetAllNewsArticlesAsync();
             return Ok(newsArticles);
         }
+        [HttpGet("staff/{staffId}")]
+        public async Task<IActionResult> GetNewsArticleByStaffId(short staffId)
+        {
+            var newsArticles = await _naS.GetNewsArticleByStaffIdAsync(staffId);
+            return Ok(newsArticles);
+        }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetNewsArticleById(string id)
         {

@@ -9,11 +9,13 @@ namespace FUNews.BLL.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IGenericRepository<SystemAccount, short> _systemAccountRepository;
+        private readonly IGenericRepository<NewsArticle, string> _newsArticleRepository;
 
-        public SystemAccountService(IGenericRepository<SystemAccount, short> systemAccountRepository, IUnitOfWork unitOfWork)
+        public SystemAccountService(IGenericRepository<SystemAccount, short> systemAccountRepository, IUnitOfWork unitOfWork, IGenericRepository<NewsArticle, string> newsArticleRepository)
         {
             _systemAccountRepository = systemAccountRepository;
             _unitOfWork = unitOfWork;
+            _newsArticleRepository = newsArticleRepository;
         }
 
         // Get all system accounts
@@ -54,7 +56,9 @@ namespace FUNews.BLL.Services
             var systemAccount = await _systemAccountRepository.FindById(id, "AccountId");
             if (systemAccount == null)
                 throw new ArgumentException("System account not found");
-
+            var newsArticles = await _newsArticleRepository.FindAll(x => x.CreatedById == id).ToListAsync();
+            if (newsArticles.Any())
+                throw new InvalidOperationException("Cannot delete system account with existing news articles.");
             _systemAccountRepository.Delete(systemAccount);
             await _unitOfWork.SaveChange(); // Save changes using UnitOfWork
         }

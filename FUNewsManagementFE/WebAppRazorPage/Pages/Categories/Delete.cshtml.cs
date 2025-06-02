@@ -14,15 +14,15 @@ namespace FUNewsManagementSystem.Pages.Categories
 
         public async Task<IActionResult> OnPostAsync(short id)
         {
-            try
+            var response = await _httpClient.DeleteAsync($"https://localhost:7126/api/Category/{id}");
+
+            if (response.IsSuccessStatusCode)
             {
-                await _httpClient.DeleteAsync($"https://localhost:7126/api/Category/{id}");
-                return new JsonResult(new { success = true, message = "Category deleted successfully." });
+                return RedirectToPage("/Categories/Index");
             }
-            catch (Exception ex)
-            {
-                return new JsonResult(new { success = false, message = "Error: " + ex.Message });
-            }
+            var error = await response.Content.ReadAsStringAsync();
+            return BadRequest(error);
+        
         }
 
     }

@@ -15,8 +15,13 @@ namespace FUNewsManagementSystem.Pages.SystemAccounts
         }
         public async Task<IActionResult> OnPostAsync(short id)
         {
-            await _httpClient.DeleteAsync($"https://localhost:7126/api/SystemAccount/{id}");
-            return RedirectToPage("/SystemAccounts/Index");
+            var response = await _httpClient.DeleteAsync($"https://localhost:7126/api/SystemAccount/{id}");
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToPage("/SystemAccounts/Index");
+            }
+            var error = await response.Content.ReadAsStringAsync();
+            return BadRequest(error);
         }
     }
 }

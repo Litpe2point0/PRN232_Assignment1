@@ -32,6 +32,8 @@
                                 <li class="nav-item"><a class="nav-link" asp-page="/NewsArticles/Index" >Manage News</a></li>
                                 <li class="nav-item"><a class="nav-link" asp-page="/Categories/Index">Manage Category</a></li>
                                 <li class="nav-item"><a class="nav-link" asp-page="/Tags/Index">Manage Tag</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-page="/NewsArticles/History">View History</a></li>
+
                             }
                             @if (User.IsInRole("Lecturer"))
                             {
@@ -81,11 +83,7 @@
         </main>
     </div>
 
-    <footer class="bg-light text-center py-3 mt-4 border-top">
-        <div class="container">
-            <span>&copy; 2025 - FUNewsManagementMVC - <a asp-controller="Home" asp-action="Privacy">Privacy</a></span>
-        </div>
-    </footer>
+
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

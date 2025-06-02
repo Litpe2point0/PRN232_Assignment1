@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace FUNewsManagementSystem.Pages.NewsArticles
 {
-    [Authorize(Policy = "LecturerOnly")]
     public class LecturerNewDetailsModel : PageModel
     {
         private readonly HttpClient _httpClient;

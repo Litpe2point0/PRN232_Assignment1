@@ -31,7 +31,12 @@ public class NewsArticleService : INewsArticleService
     {
         return await _newsArticleRepository.FindById(id, "NewsArticleId", a => a.Tags, a => a.Category, a => a.CreatedBy);
     }
-
+    public async Task<IEnumerable<NewsArticle>> GetNewsArticleByStaffIdAsync(short id)
+    {
+        return await _newsArticleRepository
+              .FindAll(a => a.CreatedById.Equals(id), a => a.Tags, a => a.Category)
+              .ToListAsync();
+    }
     // Thêm bài viết mới + Tags
     public async Task AddNewsArticleAsync(NewsArticle newsArticle, List<int> tagIds)
     {

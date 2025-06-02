@@ -6,9 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BusinessObject.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FUNewsManagementSystem.Pages.NewsArticles
 {
+    [Authorize(Policy = "StaffOnly")]
+
     public class IndexModel : PageModel
     {
         private readonly HttpClient _httpClient;

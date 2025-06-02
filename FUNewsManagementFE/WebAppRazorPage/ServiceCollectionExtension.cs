@@ -11,7 +11,7 @@ namespace WebAppRazorPage
                 {
                     options.Cookie.Name = "MyAuthCookie";
                     options.LoginPath = "/SystemAccounts/Login";
-                    options.AccessDeniedPath = "/SystemAccounts/AccessDenied";
+                    options.AccessDeniedPath = "/Error";
                     options.ExpireTimeSpan = TimeSpan.FromHours(1);
                     options.SlidingExpiration = true;
                     options.Cookie.HttpOnly = true;
